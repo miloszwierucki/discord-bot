@@ -1,16 +1,8 @@
-import data from "./data.json" assert { type: "json" };
 import axios from "axios";
-import * as dotenv from "dotenv";
-dotenv.config();
+import { dataLog } from "./updatebot.js";
 
-interface IData {
+export interface IData {
   coinID: string;
-  size?: number;
-}
-
-interface IDataSecrets extends IData {
-  botID: string | undefined;
-  token: string | undefined;
 }
 
 interface ICoinInfo {
@@ -20,14 +12,12 @@ interface ICoinInfo {
 }
 
 const allCoins: Array<string> = [];
-const dataLog = [...data] as IDataSecrets[];
+
 dataLog.forEach((item) => {
   allCoins.push(item.coinID);
-  item.botID = process.env[`${item.botID}`];
-  item.token = process.env[`${item.token}`];
 });
 
-let coinInfo = [] as ICoinInfo[];
+export let coinInfo = [] as ICoinInfo[];
 export const updateGecko = async (currency: string) => {
   await axios
     .get(
@@ -36,19 +26,19 @@ export const updateGecko = async (currency: string) => {
       )}`
     )
     .then((res) => {
-      res.data.forEach((item: any, index: number) => {
+      res.data.forEach((item: any) => {
+        const index = allCoins.indexOf(item.id);
         coinInfo[index] = {
           currentPrice: item.current_price,
           priceChangePct: item.price_change_percentage_24h,
           symbol: item.symbol,
         };
       });
-    });
-  showStatus();
+      //showStatus();
+    })
+    .catch((err) => console.log("Error at api.coingecko.com data:", err));
 };
 
-updateGecko("usd");
-
-export const showStatus = () => {
-  console.log(coinInfo);
+export const showStatus = async () => {
+  await console.log(coinInfo);
 };

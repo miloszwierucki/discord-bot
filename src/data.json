@@ -1,64 +1,55 @@
 [
   {
     "coinID": "bitcoin",
-    "botID": "VITE_DISCORD_BOT_ID_BTC",
-    "token": "VITE_DISCORD_BOT_SECRET_BTC",
-    "size": 1
+    "botID": "BOT_ID_BTC",
+    "token": "BOT_SECRET_BTC"
   },
 
   {
     "coinID": "ethereum",
-    "botID": "VITE_DISCORD_BOT_ID_ETH",
-    "token": "VITE_DISCORD_BOT_SECRET_ETH",
-    "size": 1
+    "botID": "BOT_ID_ETH",
+    "token": "BOT_SECRET_ETH"
   },
 
   {
     "coinID": "binancecoin",
-    "botID": "VITE_DISCORD_BOT_ID_BNB",
-    "token": "VITE_DISCORD_BOT_SECRET_BNB",
-    "size": 1
+    "botID": "BOT_ID_BNB",
+    "token": "BOT_SECRET_BNB"
   },
 
   {
     "coinID": "fantom",
-    "botID": "VITE_DISCORD_BOT_ID_FTM",
-    "token": "VITE_DISCORD_BOT_SECRET_FTM",
-    "size": 0
+    "botID": "BOT_ID_FTM",
+    "token": "BOT_SECRET_FTM"
   },
 
   {
     "coinID": "grove",
-    "botID": "VITE_DISCORD_BOT_ID_GRV",
-    "token": "VITE_DISCORD_BOT_SECRET_GRV",
-    "size": 0
+    "botID": "BOT_ID_GRV",
+    "token": "BOT_SECRET_GRV"
   },
 
   {
     "coinID": "treeb",
-    "botID": "VITE_DISCORD_BOT_ID_TREEB",
-    "token": "VITE_DISCORD_BOT_SECRET_TREEB",
-    "size": 0
+    "botID": "BOT_ID_TREEB",
+    "token": "BOT_SECRET_TREEB"
   },
 
   {
     "coinID": "crypto-com-chain",
-    "botID": "VITE_DISCORD_BOT_ID_CRO",
-    "token": "VITE_DISCORD_BOT_SECRET_CRO",
-    "size": 0
+    "botID": "BOT_ID_CRO",
+    "token": "BOT_SECRET_CRO"
   },
 
   {
     "coinID": "algorand",
-    "botID": "VITE_DISCORD_BOT_ID_ALGO",
-    "token": "VITE_DISCORD_BOT_SECRET_ALGO",
-    "size": 0
+    "botID": "BOT_ID_ALGO",
+    "token": "BOT_SECRET_ALGO"
   },
 
   {
     "coinID": "matic-network",
-    "botID": "VITE_DISCORD_BOT_ID_MATIC",
-    "token": "VITE_DISCORD_BOT_SECRET_MATIC",
-    "size": 0
+    "botID": "BOT_ID_MATIC",
+    "token": "BOT_SECRET_MATIC"
   }
 ]
