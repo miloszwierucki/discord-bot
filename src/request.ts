@@ -1,24 +1,23 @@
 import axios from "axios";
-import { dataLog } from "./updatebot.js";
+import { dataLog } from "./index.js";
+import { calculateRSI } from "./rsi.js";
 
-export interface IData {
-  coinID: string;
+export interface ICoinInfo {
+  currentPrice: number | 0;
+  priceChangePct: number | 0;
+  symbol: string | "";
+  rsi: number | 0;
 }
 
-interface ICoinInfo {
-  currentPrice: number;
-  priceChangePct: number;
-  symbol: string;
-}
-
-const allCoins: Array<string> = [];
-
-dataLog.forEach((item) => {
-  allCoins.push(item.coinID);
-});
-
-export let coinInfo = [] as ICoinInfo[];
+// Update the current price, price change and symbol of each coin
 export const updateGecko = async (currency: string) => {
+  const coinsInfo = [] as ICoinInfo[];
+  const allCoins: Array<string> = [];
+
+  dataLog.forEach((item) => {
+    allCoins.push(item.coinID);
+  });
+
   await axios
     .get(
       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${allCoins.join(
@@ -26,19 +25,37 @@ export const updateGecko = async (currency: string) => {
       )}`
     )
     .then((res) => {
-      res.data.forEach((item: any) => {
+      res.data.forEach(async (item: any) => {
         const index = allCoins.indexOf(item.id);
-        coinInfo[index] = {
+
+        coinsInfo[index] = {
           currentPrice: item.current_price,
           priceChangePct: item.price_change_percentage_24h,
           symbol: item.symbol,
+          rsi: 0,
         };
       });
-      //showStatus();
     })
     .catch((err) => console.log("Error at api.coingecko.com data:", err));
-};
 
-export const showStatus = async () => {
-  await console.log(coinInfo);
+  await Promise.all(
+    dataLog.map(async (item, index) => {
+      await axios
+        .get(
+          `https://api.coingecko.com/api/v3/coins/${item.coinID}/ohlc?vs_currency=${currency}&days=7`
+        )
+        .then(async (res) => {
+          const closePrices: Array<number> = [];
+          res.data.forEach(async (itemData: any) => {
+            closePrices.push(itemData[4]);
+          });
+
+          const rsi = await calculateRSI(closePrices);
+          coinsInfo[index].rsi = rsi;
+        })
+        .catch((err) => console.log("Error at api.coingecko.com data:", err));
+    })
+  );
+
+  return coinsInfo as ICoinInfo[];
 };
