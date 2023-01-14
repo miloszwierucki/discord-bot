@@ -9,7 +9,7 @@ interface IDataSecrets {
 
 export const dataLog = [...data] as IDataSecrets[];
 export const currency = "usd"; // usd, eur, gbp
-const delay = 1500;
+const delay = 1.5;
 
 export let currencySymbol = "";
 if (currency === "usd") {
@@ -34,7 +34,8 @@ async function start() {
     clientArray.forEach(async (client, index) => {
       await updatePrice(client, index, coinInfo);
     });
-  }, delay);
+    console.log("Updated");
+  }, delay * 60 * 1000);
 
   // const coinInfo = await updateGecko(currency);
   // console.log(coinInfo);

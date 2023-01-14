@@ -15,7 +15,9 @@ export const botLogin = async () => {
       intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
     });
     clientArray.push(client);
-
+    // client.once("ready", async () => {
+    //   console.log(`Logged in as ${client.user?.tag}!`);
+    // });
     client.login(item.token);
   });
   return clientArray;
