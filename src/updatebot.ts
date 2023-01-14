@@ -7,14 +7,14 @@ import { dataLog, currencySymbol } from "./index.js";
 // Log in to Discord with the client's token
 export const botLogin = async () => {
   const clientArray = [] as Client<boolean>[];
-  dataLog.forEach(async (item) => {
+  dataLog.forEach(async (item, index) => {
     item.botID = process.env[`${item.botID}`] as string;
     item.token = process.env[`${item.token}`] as string;
 
     const client = new Client({
       intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
     });
-    clientArray.push(client);
+    clientArray[index] = client;
     // client.once("ready", async () => {
     //   console.log(`Logged in as ${client.user?.tag}!`);
     // });
@@ -30,6 +30,7 @@ export const updatePrice = async (
   coinInfo: ICoinInfo[]
 ) => {
   const Guilds = client.guilds.cache.map((guild) => guild.id);
+  //const botID = process.env[`${dataLog[index].botID}`] as string;
 
   client.user?.setPresence({
     activities: [
@@ -48,16 +49,23 @@ export const updatePrice = async (
         : "online",
   });
 
-  Guilds.forEach((server) => {
-    const guild = client.guilds.resolve(server);
-    const price = coinInfo[index].currentPrice;
+  const price = coinInfo[index].currentPrice;
 
-    guild?.members.cache.map((member) =>
-      member.setNickname(
-        price > 1
-          ? `${price}${currencySymbol}`
-          : `${price.toLocaleString().replace(/,/g, ",")}${currencySymbol}`
-      )
+  Guilds.forEach((element) => {
+    const guild = client.guilds.resolve(element);
+    const member = guild?.members.cache.find((member) => member.user.bot);
+
+    // guild?.members.cache.map((member) =>
+    //   member.setNickname(
+    //     price > 1
+    //       ? `${price}${currencySymbol}`
+    //       : `${price.toLocaleString().replace(/,/g, ",")}${currencySymbol}`
+    //   )
+    // );
+    member?.setNickname(
+      price > 1
+        ? `${price}${currencySymbol}`
+        : `${price.toLocaleString().replace(/,/g, ",")}${currencySymbol}`
     );
   });
 };
