@@ -9,7 +9,7 @@ interface IDataSecrets {
 
 export const dataLog = [...data] as IDataSecrets[];
 export const currency = "usd"; // usd, eur, gbp
-const delay = 1.5;
+const delay = 5;
 
 export let currencySymbol = "";
 if (currency === "usd") {

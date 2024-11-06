@@ -24,32 +24,8 @@
   },
 
   {
-    "coinID": "grove",
-    "botID": "BOT_ID_GRV",
-    "token": "BOT_SECRET_GRV"
-  },
-
-  {
     "coinID": "treeb",
     "botID": "BOT_ID_TREEB",
     "token": "BOT_SECRET_TREEB"
-  },
-
-  {
-    "coinID": "crypto-com-chain",
-    "botID": "BOT_ID_CRO",
-    "token": "BOT_SECRET_CRO"
-  },
-
-  {
-    "coinID": "algorand",
-    "botID": "BOT_ID_ALGO",
-    "token": "BOT_SECRET_ALGO"
-  },
-
-  {
-    "coinID": "matic-network",
-    "botID": "BOT_ID_MATIC",
-    "token": "BOT_SECRET_MATIC"
   }
 ]
